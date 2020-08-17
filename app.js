@@ -1,27 +1,26 @@
-var student = {
-  name: "",
-  type: "student"
-};
+(function () {
+'use strict';
 
-document.addEventListener('DOMContentLoaded', contentLoaded);
+angular.module('NameCalculator', [])
 
-function contentLoaded(event) {
-  document.getElementById('name').addEventListener("keyup", keyUp);
-}
+.controller('NameCalculatorController', function ($scope) {
+  $scope.name = "";
+  $scope.totalValue = 0;
 
-function keyUp(event) {
-  calculateNumericOutput();
-}
-
-function calculateNumericOutput() {
-  student.name = document.getElementById('name').value;
-
-  var totalNameValue = 0;
-  for (var i = 0; i < student.name.length; i++) {
-    totalNameValue += student.name.charCodeAt(i);
+  $scope.displayNumeric = function () {
+    var totalNameValue = calculateNumericValueForString($scope.name);
+    $scope.totalValue = totalNameValue;
   }
 
-  // Insert result into page
-  var output = "Total Numeric value of person's name is " + totalNameValue;
-  document.getElementById('output').innerText = output;
+function calculateNumericValueForString(string) {
+  var totalStringValue = 0;
+  for(var i = 0; i < string.length; i++){
+    totalStringValue += string.charCodeAt(i);
+  }
+
+  return totalStringValue;
 }
+
+});
+
+})();
