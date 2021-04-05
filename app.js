@@ -1,26 +1,19 @@
 (function () {
 'use strict';
 
-angular.module('NameCalculator', [])
+angular.module('DIApp', []).controller('DIController', DIController);
 
-.controller('NameCalculatorController', function ($scope) {
-  $scope.name = "";
-  $scope.totalValue = 0;
+function DIController($scope, $filter, $injector){
+  $scope.name = "AngularJS";
 
-  $scope.displayNumeric = function () {
-    var totalNameValue = calculateNumericValueForString($scope.name);
-    $scope.totalValue = totalNameValue;
-  }
+  $scope.upper = function(){
+    var upCase = $filter('uppercase');
+    $scope.name = upCase($scope.name);
+  };
 
-function calculateNumericValueForString(string) {
-  var totalStringValue = 0;
-  for(var i = 0; i < string.length; i++){
-    totalStringValue += string.charCodeAt(i);
-  }
-
-  return totalStringValue;
+  console.log($injector.annotate(DIController));
 }
 
-});
+console.log(DIController.toString());
 
 })();
